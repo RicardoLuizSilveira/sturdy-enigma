@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "sic_state")
 public class State implements Serializable{
@@ -21,7 +23,8 @@ public class State implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "state", fetch = FetchType.LAZY)
 	List<City> cities = new ArrayList<>();
 	
