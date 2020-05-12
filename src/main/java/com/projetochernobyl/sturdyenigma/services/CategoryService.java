@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.projetochernobyl.sturdyenigma.domain.Category;
 import com.projetochernobyl.sturdyenigma.repository.CategoryRepository;
+import com.projetochernobyl.sturdyenigma.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoryService {
@@ -17,12 +18,10 @@ public class CategoryService {
 	
 	public Category findById(Long id) {
 		Optional<Category> opt = rep.findById(id);
-		return opt.orElse(null);
+		return opt.orElseThrow(() -> new ObjectNotFoundException("SIC-500", "Category not found. id: " + id));
 	}
 	
 	public List<Category> findAll() {
 		return rep.findAll();
 	}
-	
-
 }

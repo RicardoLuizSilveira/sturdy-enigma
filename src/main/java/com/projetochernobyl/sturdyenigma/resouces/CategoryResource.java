@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projetochernobyl.sturdyenigma.domain.Category;
-import com.projetochernobyl.sturdyenigma.domain.dto.ResponseDTO;
+import com.projetochernobyl.sturdyenigma.resouces.responses.ResponseDTO;
 import com.projetochernobyl.sturdyenigma.services.CategoryService;
 
 @RestController
