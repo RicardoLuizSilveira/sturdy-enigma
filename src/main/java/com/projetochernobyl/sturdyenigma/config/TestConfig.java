@@ -8,9 +8,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.projetochernobyl.sturdyenigma.domain.Category;
+import com.projetochernobyl.sturdyenigma.domain.City;
 import com.projetochernobyl.sturdyenigma.domain.Product;
+import com.projetochernobyl.sturdyenigma.domain.State;
 import com.projetochernobyl.sturdyenigma.repository.CategoryRepository;
+import com.projetochernobyl.sturdyenigma.repository.CityRepository;
 import com.projetochernobyl.sturdyenigma.repository.ProductRepository;
+import com.projetochernobyl.sturdyenigma.repository.StateRepository;
 
 @Configuration
 @Profile("dbtest")
@@ -21,6 +25,12 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private StateRepository stateRepository;
+	
+	@Autowired
+	private CityRepository cityRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -36,6 +46,19 @@ public class TestConfig implements CommandLineRunner{
 
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+		
+		
+		State s1 = new State(null, "Rondônia");
+		State s2 = new State(null, "Paraná");
+		
+		City c1 = new City(null, "Maringá", s2);
+		City c2 = new City(null, "Sarandi", s2);
+		City c5 = new City(null, "Cerejeiras", s1);
+		City c6 = new City(null, "Porto Velho", s1);
+		
+		stateRepository.saveAll(Arrays.asList(s1, s2));
+		cityRepository.saveAll(Arrays.asList(c1, c2, c5, c6));
+		
 	}
 
 }
