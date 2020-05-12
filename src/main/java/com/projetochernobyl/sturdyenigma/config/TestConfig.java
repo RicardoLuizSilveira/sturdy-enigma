@@ -7,12 +7,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.projetochernobyl.sturdyenigma.domain.Address;
 import com.projetochernobyl.sturdyenigma.domain.Category;
 import com.projetochernobyl.sturdyenigma.domain.City;
+import com.projetochernobyl.sturdyenigma.domain.Client;
 import com.projetochernobyl.sturdyenigma.domain.Product;
 import com.projetochernobyl.sturdyenigma.domain.State;
+import com.projetochernobyl.sturdyenigma.domain.enums.ClientType;
+import com.projetochernobyl.sturdyenigma.repository.AddressRepository;
 import com.projetochernobyl.sturdyenigma.repository.CategoryRepository;
 import com.projetochernobyl.sturdyenigma.repository.CityRepository;
+import com.projetochernobyl.sturdyenigma.repository.ClientRepository;
 import com.projetochernobyl.sturdyenigma.repository.ProductRepository;
 import com.projetochernobyl.sturdyenigma.repository.StateRepository;
 
@@ -31,6 +36,12 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private CityRepository cityRepository;
+	
+	@Autowired
+	private AddressRepository addressRepository;
+	
+	@Autowired
+	private ClientRepository clientRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -59,6 +70,16 @@ public class TestConfig implements CommandLineRunner{
 		stateRepository.saveAll(Arrays.asList(s1, s2));
 		cityRepository.saveAll(Arrays.asList(c1, c2, c5, c6));
 		
+		Client cli1 = new Client(null, "Maria", "m@hotmail.com", "5478545", ClientType.NATURAL_PERSON);
+		cli1.getPhones().addAll(Arrays.asList("88996655", "99663322"));
+		
+		Address ad1 = new Address(null, "rua 1", "987", "zona 5", "87954211", cli1, c1);
+		Address ad2 = new Address(null, "rua 2", "55", "Barão Rio Branco", "88954211", cli1, c2);
+		
+		cli1.getAddresses().addAll(Arrays.asList(ad1, ad2));
+		
+		clientRepository.saveAll(Arrays.asList(cli1));
+		addressRepository.saveAll(Arrays.asList(ad1, ad2));
 	}
 
 }
