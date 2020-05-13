@@ -24,4 +24,10 @@ public class CategoryService {
 	public List<Category> findAll() {
 		return rep.findAll();
 	}
+	
+	public Category insertCategory(Category obj) {
+		obj.setId(null);
+		obj = rep.save(obj);
+		return obj;
+	}
 }
