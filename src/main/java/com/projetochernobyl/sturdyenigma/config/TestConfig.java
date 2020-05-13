@@ -1,5 +1,6 @@
 package com.projetochernobyl.sturdyenigma.config;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,16 +9,23 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.projetochernobyl.sturdyenigma.domain.Address;
+import com.projetochernobyl.sturdyenigma.domain.CardPayment;
 import com.projetochernobyl.sturdyenigma.domain.Category;
 import com.projetochernobyl.sturdyenigma.domain.City;
 import com.projetochernobyl.sturdyenigma.domain.Client;
+import com.projetochernobyl.sturdyenigma.domain.CreditPayment;
+import com.projetochernobyl.sturdyenigma.domain.Order;
+import com.projetochernobyl.sturdyenigma.domain.Payment;
 import com.projetochernobyl.sturdyenigma.domain.Product;
 import com.projetochernobyl.sturdyenigma.domain.State;
 import com.projetochernobyl.sturdyenigma.domain.enums.ClientType;
+import com.projetochernobyl.sturdyenigma.domain.enums.PaymentSituation;
 import com.projetochernobyl.sturdyenigma.repository.AddressRepository;
 import com.projetochernobyl.sturdyenigma.repository.CategoryRepository;
 import com.projetochernobyl.sturdyenigma.repository.CityRepository;
 import com.projetochernobyl.sturdyenigma.repository.ClientRepository;
+import com.projetochernobyl.sturdyenigma.repository.OrderRepository;
+import com.projetochernobyl.sturdyenigma.repository.PaymentRepository;
 import com.projetochernobyl.sturdyenigma.repository.ProductRepository;
 import com.projetochernobyl.sturdyenigma.repository.StateRepository;
 
@@ -27,21 +35,20 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
 	@Autowired
 	private ProductRepository productRepository;
-	
 	@Autowired
 	private StateRepository stateRepository;
-	
 	@Autowired
 	private CityRepository cityRepository;
-	
 	@Autowired
 	private AddressRepository addressRepository;
-	
 	@Autowired
 	private ClientRepository clientRepository;
+	@Autowired
+	private PaymentRepository paymentRepository;
+	@Autowired
+	private OrderRepository orderRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -80,6 +87,23 @@ public class TestConfig implements CommandLineRunner{
 		
 		clientRepository.saveAll(Arrays.asList(cli1));
 		addressRepository.saveAll(Arrays.asList(ad1, ad2));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		
+		Order or1 = new Order(null, sdf.parse("2017-09-30 10:32"), cli1, ad1);
+		Order or2 = new Order(null, sdf.parse("2017-10-10 19:35"), cli1, ad2);
+		
+		Payment pay1 = new CreditPayment(null, PaymentSituation.PAYED, or1, 6);
+		or1.setPayment(pay1);
+		
+		Payment pay2 = new CardPayment(null, PaymentSituation.PENDING, or2, sdf.parse("2017-02-20 00:00"), null);
+		or2.setPayment(pay2);
+		
+		cli1.getOrders().addAll(Arrays.asList(or1, or2));
+		
+		orderRepository.saveAll(Arrays.asList(or1, or2));
+		paymentRepository.saveAll(Arrays.asList(pay1, pay2));
+		
 	}
 
 }

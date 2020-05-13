@@ -38,6 +38,9 @@ public class Client implements Serializable{
 	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
 	private List<Address> addresses = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<>();
+	
 	public Client() {
 	}
 
@@ -104,6 +107,14 @@ public class Client implements Serializable{
 
 	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
+	}
+	
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	@Override
