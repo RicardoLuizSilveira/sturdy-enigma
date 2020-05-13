@@ -40,6 +40,7 @@ public class Product implements Serializable{
 		)
 	private List<Category> categories = new ArrayList<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.product")
 	private Set<OrderItem> itens = new HashSet<>();
 	
@@ -54,6 +55,7 @@ public class Product implements Serializable{
 		categories.add(category);
 	}
 	
+	@JsonIgnore
 	public List<Order> getOrders() {
 		List<Order> list = new ArrayList<>();
 		itens.stream().map(x -> list.add(x.getOrder()));

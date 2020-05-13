@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.projetochernobyl.sturdyenigma.domain.enums.ClientType;
 
 @Entity
@@ -38,6 +39,7 @@ public class Client implements Serializable{
 	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
 	private List<Address> addresses = new ArrayList<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();
 	
