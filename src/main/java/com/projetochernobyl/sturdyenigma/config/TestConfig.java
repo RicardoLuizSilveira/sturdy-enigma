@@ -15,6 +15,7 @@ import com.projetochernobyl.sturdyenigma.domain.City;
 import com.projetochernobyl.sturdyenigma.domain.Client;
 import com.projetochernobyl.sturdyenigma.domain.CreditPayment;
 import com.projetochernobyl.sturdyenigma.domain.Order;
+import com.projetochernobyl.sturdyenigma.domain.OrderItem;
 import com.projetochernobyl.sturdyenigma.domain.Payment;
 import com.projetochernobyl.sturdyenigma.domain.Product;
 import com.projetochernobyl.sturdyenigma.domain.State;
@@ -24,6 +25,7 @@ import com.projetochernobyl.sturdyenigma.repository.AddressRepository;
 import com.projetochernobyl.sturdyenigma.repository.CategoryRepository;
 import com.projetochernobyl.sturdyenigma.repository.CityRepository;
 import com.projetochernobyl.sturdyenigma.repository.ClientRepository;
+import com.projetochernobyl.sturdyenigma.repository.OrderItemRepository;
 import com.projetochernobyl.sturdyenigma.repository.OrderRepository;
 import com.projetochernobyl.sturdyenigma.repository.PaymentRepository;
 import com.projetochernobyl.sturdyenigma.repository.ProductRepository;
@@ -49,6 +51,8 @@ public class TestConfig implements CommandLineRunner{
 	private PaymentRepository paymentRepository;
 	@Autowired
 	private OrderRepository orderRepository;
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -104,6 +108,17 @@ public class TestConfig implements CommandLineRunner{
 		orderRepository.saveAll(Arrays.asList(or1, or2));
 		paymentRepository.saveAll(Arrays.asList(pay1, pay2));
 		
+		OrderItem oi1 = new OrderItem(or1, p1, 0.0, 1, p1.getPrice());
+		OrderItem oi2 = new OrderItem(or1, p3, 0.0, 2, p3.getPrice());
+		OrderItem oi3 = new OrderItem(or2, p2, 100.0, 1, p2.getPrice());
+		
+		or1.getItens().addAll(Arrays.asList(oi1, oi2));
+		or2.getItens().add(oi3);
+		
+		p1.getItens().add(oi1);
+		p2.getItens().add(oi3);
+		p3.getItens().add(oi2);
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3));
 	}
 
 }

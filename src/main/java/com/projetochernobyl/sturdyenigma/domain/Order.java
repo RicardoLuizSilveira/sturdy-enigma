@@ -2,6 +2,8 @@ package com.projetochernobyl.sturdyenigma.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -33,6 +36,9 @@ public class Order implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "deliver_address_id")
 	private Address deliverAddress;
+	
+	@OneToMany(mappedBy = "id.order")
+	private Set<OrderItem> itens = new HashSet<>();
 
 	public Order() {
 	}
@@ -83,6 +89,14 @@ public class Order implements Serializable{
 
 	public void setDeliverAddress(Address deliverAddress) {
 		this.deliverAddress = deliverAddress;
+	}
+	
+	public Set<OrderItem> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<OrderItem> itens) {
+		this.itens = itens;
 	}
 
 	@Override
