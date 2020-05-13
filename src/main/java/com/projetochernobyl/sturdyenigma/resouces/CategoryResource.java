@@ -1,7 +1,9 @@
 package com.projetochernobyl.sturdyenigma.resouces;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.projetochernobyl.sturdyenigma.domain.Category;
+import com.projetochernobyl.sturdyenigma.dto.CategoryDTO;
 import com.projetochernobyl.sturdyenigma.resouces.responses.ResponseDTO;
 import com.projetochernobyl.sturdyenigma.services.CategoryService;
 
@@ -27,9 +30,11 @@ public class CategoryResource {
 	private CategoryService service;
 	
 	@GetMapping
-	public ResponseEntity<ResponseDTO<List<Category>>> findAll() {
-		ResponseDTO<List<Category>> data = new ResponseDTO<>();
-		data.setData(service.findAll());
+	public ResponseEntity<ResponseDTO<List<CategoryDTO>>> findAll() {
+		ResponseDTO<List<CategoryDTO>> data = new ResponseDTO<>();
+		List<Category> list = service.findAll();
+		List<CategoryDTO> listDto = list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
+		data.setData(listDto);
 		return ResponseEntity.ok(data);
 	}
 	
