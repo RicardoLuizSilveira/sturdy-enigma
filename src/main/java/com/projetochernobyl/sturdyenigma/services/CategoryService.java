@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.projetochernobyl.sturdyenigma.domain.Category;
+import com.projetochernobyl.sturdyenigma.dto.CategoryDTO;
 import com.projetochernobyl.sturdyenigma.repository.CategoryRepository;
 import com.projetochernobyl.sturdyenigma.services.exceptions.DataIntegrityException;
 import com.projetochernobyl.sturdyenigma.services.exceptions.ObjectNotFoundException;
@@ -53,6 +54,10 @@ public class CategoryService {
 	public Page<Category> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return rep.findAll(pageRequest);
+	}
+	
+	public Category fromDto(CategoryDTO objDto) {
+		return new Category(objDto.getId(), objDto.getName());
 	}
 }
 
