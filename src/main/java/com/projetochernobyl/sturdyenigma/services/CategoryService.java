@@ -38,10 +38,15 @@ public class CategoryService {
 	}
 
 	public Category update(Category obj) {
-		findById(obj.getId());
-		return rep.save(obj);
+		Category newObj = findById(obj.getId());
+		updateData(newObj, obj);
+		return rep.save(newObj);
 	}
 	
+	private void updateData(Category newObj, Category obj) {
+		newObj.setName(obj.getName());
+	}
+
 	public void delete(Long id) {
 		findById(id);
 		try {
