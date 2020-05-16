@@ -2,19 +2,35 @@ package com.projetochernobyl.sturdyenigma.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import com.projetochernobyl.sturdyenigma.services.validation.ClientInsert;
+
+@ClientInsert
 public class ClientNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message = "Field should not be empty")
+	@Size(min = 5, max = 20, message = "Field must have between 5 and 20 letters")
 	private String name;
+	
+	@NotEmpty(message = "Field should not be empty")
+	@Email(message = "this is not a valid email")
 	private String email;
 	private String ninOrNif;
 	private Integer type;
 	
+	@NotEmpty(message = "Field should not be empty")
 	private String street;
+	
+	@NotEmpty(message = "Field should not be empty")
 	private String number;
 	private String neighborhood;
 	private String zipCode;
 	
+	@NotEmpty(message = "Field should not be empty")
 	private String phoneNumber1;
 	private String phoneNumber2;
 	private String phoneNumber3;
