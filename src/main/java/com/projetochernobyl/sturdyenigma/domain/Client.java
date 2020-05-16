@@ -52,7 +52,7 @@ public class Client implements Serializable{
 		this.name = name;
 		this.email = email;
 		this.ninOrNif = ninOrNif;
-		this.type = type.getCode();
+		this.type = (type == null) ? null : type.getCode();
 	}
 
 	public Long getId() {
