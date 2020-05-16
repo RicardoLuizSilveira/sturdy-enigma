@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.projetochernobyl.sturdyenigma.domain.enums.PaymentSituation;
 
 @Entity
-public class CardPayment extends Payment{
+public class PaymentBarrCode extends Payment{
 	private static final long serialVersionUID = 1L;
 	
 	@JsonFormat(pattern="yyyy-MM-dd")
@@ -17,9 +17,9 @@ public class CardPayment extends Payment{
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
 	private Date payDate;
 	
-	public CardPayment() {
+	public PaymentBarrCode() {
 	}
-	public CardPayment(Long id, PaymentSituation situation, Order order, Date dueDAte, Date payDate) {
+	public PaymentBarrCode(Long id, PaymentSituation situation, Order order, Date dueDAte, Date payDate) {
 		super(id, situation, order);
 		this.dueDAte = dueDAte;
 		this.payDate = payDate;
