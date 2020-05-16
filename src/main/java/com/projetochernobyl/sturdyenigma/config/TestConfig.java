@@ -9,11 +9,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.projetochernobyl.sturdyenigma.domain.Address;
-import com.projetochernobyl.sturdyenigma.domain.CardPayment;
+import com.projetochernobyl.sturdyenigma.domain.PaymentBarrCode;
 import com.projetochernobyl.sturdyenigma.domain.Category;
 import com.projetochernobyl.sturdyenigma.domain.City;
 import com.projetochernobyl.sturdyenigma.domain.Client;
-import com.projetochernobyl.sturdyenigma.domain.CreditPayment;
+import com.projetochernobyl.sturdyenigma.domain.PaymentCreditCard;
 import com.projetochernobyl.sturdyenigma.domain.Order;
 import com.projetochernobyl.sturdyenigma.domain.OrderItem;
 import com.projetochernobyl.sturdyenigma.domain.Payment;
@@ -116,10 +116,10 @@ public class TestConfig implements CommandLineRunner {
 		Order or1 = new Order(null, sdf.parse("2017-09-30 10:32"), cli1, ad1);
 		Order or2 = new Order(null, sdf.parse("2017-10-10 19:35"), cli1, ad2);
 
-		Payment pay1 = new CreditPayment(null, PaymentSituation.PAYED, or1, 6);
+		Payment pay1 = new PaymentCreditCard(null, PaymentSituation.PAYED, or1, 6);
 		or1.setPayment(pay1);
 
-		Payment pay2 = new CardPayment(null, PaymentSituation.PENDING, or2, sdf.parse("2017-02-20 00:00"), null);
+		Payment pay2 = new PaymentBarrCode(null, PaymentSituation.PENDING, or2, sdf.parse("2017-02-20 00:00"), null);
 		or2.setPayment(pay2);
 
 		cli1.getOrders().addAll(Arrays.asList(or1, or2));
