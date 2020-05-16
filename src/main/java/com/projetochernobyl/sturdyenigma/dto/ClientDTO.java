@@ -7,7 +7,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import com.projetochernobyl.sturdyenigma.domain.Client;
+import com.projetochernobyl.sturdyenigma.services.validation.ClientUpdate;
 
+@ClientUpdate
 public class ClientDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
