@@ -22,34 +22,24 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<ResponseDTO<?>> objectNotFoundException(ObjectNotFoundException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		StandardError error = new StandardError(Instant.now(), status.value(), e.getErrorCode(), e.getMessage(), request.getRequestURI());
-		
-		ResponseDTO<StandardError> err = new ResponseDTO<>();
-		err.setError(error);
-		return ResponseEntity.status(status).body(err);
+		return ResponseEntity.status(status).body(new ResponseDTO<>(null, error));
 	}
 	
 	@ExceptionHandler(DataIntegrityException.class)
 	public ResponseEntity<ResponseDTO<?>> dataIntegrityViolationException(DataIntegrityException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		StandardError error = new StandardError(Instant.now(), status.value(), e.getErrorCode(), e.getMessage(), request.getRequestURI());
-		
-		ResponseDTO<StandardError> err = new ResponseDTO<>();
-		err.setError(error);
-		return ResponseEntity.status(status).body(err);
+		return ResponseEntity.status(status).body(new ResponseDTO<>(null, error));
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ResponseDTO<?>> beanValidation(MethodArgumentNotValidException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		
 		ValidationError error = new ValidationError(Instant.now(), status.value(), "SIC-0000", "Validation error", request.getRequestURI());
 		for (FieldError x : e.getBindingResult().getFieldErrors()) {
 			error.addError(x.getField(), x.getDefaultMessage());
 		}
-		
-		ResponseDTO<?> err = new ResponseDTO<>();
-		err.setError(error);
-		return ResponseEntity.status(status).body(err);
+		return ResponseEntity.status(status).body(new ResponseDTO<>(null, error));
 	}
 
 }

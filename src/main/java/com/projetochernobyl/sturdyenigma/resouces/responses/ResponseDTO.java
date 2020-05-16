@@ -12,6 +12,11 @@ public class ResponseDTO<T> implements Serializable{
 	
 	public ResponseDTO() {
 	}
+	
+	public ResponseDTO(T data, StandardError error) {
+		this.data = data;
+		this.error = error;
+	}
 
 	public T getData() {
 		return data;
