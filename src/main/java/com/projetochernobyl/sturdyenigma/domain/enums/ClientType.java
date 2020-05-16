@@ -4,15 +4,15 @@ public enum ClientType {
 	NATURAL_PERSON(0, "Natural Person"),
 	JURIDICAL_PERSON(1, "Juridical Person");
 	
-	private int code;
+	private Integer code;
 	private String description;
 	
-	private ClientType(int code, String description) {
+	private ClientType(Integer code, String description) {
 		this.code = code;
 		this.description = description;
 	}
 	
-	public int getCode() {
+	public Integer getCode() {
 		return code;
 	}
 	
