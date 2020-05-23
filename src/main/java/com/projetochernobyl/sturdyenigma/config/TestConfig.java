@@ -84,10 +84,25 @@ public class TestConfig implements CommandLineRunner {
 		Product p3 = new Product(null, "Macbook Pro", 1250.0, cat3);
 		Product p4 = new Product(null, "PC Gamer", 1200.0, cat3);
 		Product p5 = new Product(null, "Rails for Dummies", 100.99, cat2);
+		
+		Product p6 = new Product(null, "Product 06", 100.99, cat3);
+		Product p7 = new Product(null, "Product 07", 410.99, cat4);
+		Product p8 = new Product(null, "Product 08", 110.99, cat5);
+		Product p9 = new Product(null, "Product 09", 200.99, cat6);
+		Product p10 = new Product(null, "Product 10", 300.99, cat6);
+		Product p11 = new Product(null, "Product 11", 510.99, cat7);
 
+		cat1.getProducts().addAll(Arrays.asList(p2));
+		cat2.getProducts().addAll(Arrays.asList(p1, p5));
+		cat3.getProducts().addAll(Arrays.asList(p3, p4, p6));
+		cat4.getProducts().addAll(Arrays.asList(p7));
+		cat5.getProducts().addAll(Arrays.asList(p8));
+		cat6.getProducts().addAll(Arrays.asList(p9, p10));
+		cat7.getProducts().addAll(Arrays.asList(p11));
+		
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9, cat10, cat11,
 				cat12, cat13, cat14, cat15, cat16, cat17, cat18, cat19, cat20, cat21, cat22));
-		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 
 		State s1 = new State(null, "Rondônia");
 		State s2 = new State(null, "Paraná");
