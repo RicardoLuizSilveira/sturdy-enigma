@@ -2,8 +2,10 @@ package com.projetochernobyl.sturdyenigma.domain;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.projetochernobyl.sturdyenigma.domain.enums.PaymentSituation;
 
+@JsonTypeName("paymentCreditCard")
 @Entity
 public class PaymentCreditCard extends Payment{
 	private static final long serialVersionUID = 1L;
